@@ -14,6 +14,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::middleware('auth')->get('/dashboard-test', function () {
+    return 'Protected Page';
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
