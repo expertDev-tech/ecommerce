@@ -52,4 +52,9 @@ class Product extends Model
     {
         return $this->hasMany(AttributeValue::class);
     }
+
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
 }
