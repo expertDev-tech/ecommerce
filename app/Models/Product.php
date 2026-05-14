@@ -57,4 +57,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductVariant::class);
     }
+
+    public function collections()
+    {
+        return $this->belongsToMany(ProductCollection::class);
+    }
 }
