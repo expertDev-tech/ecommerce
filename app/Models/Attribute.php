@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Attribute extends Model
 {
+    use SoftDeletes;
+    
     protected $fillable = [
+        'category_id',
         'name',
         'slug',
         'type',
@@ -14,6 +18,17 @@ class Attribute extends Model
         'is_required',
         'status',
     ];
+
+    protected $casts = [
+        'is_filterable' => 'boolean',
+        'is_required' => 'boolean',
+        'status' => 'boolean',
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function attributeValues()
     {

@@ -41,4 +41,29 @@ class Category extends Model
     {
         return $this->hasMany(AttributeValue::class);
     }
+
+    public static function getNestedCategories($categories,$parentId = null,$prefix = '') {
+
+        $nested = [];
+
+        foreach ($categories->where('parent_id', $parentId) as $category) {
+
+            $category->label = $prefix . $category->name;
+
+            $nested[] = $category;
+
+            $children = self::getNestedCategories(
+                $categories,
+                $category->id,
+                $prefix . '— '
+            );
+
+            $nested = array_merge(
+                $nested,
+                $children
+            );
+        }
+
+        return $nested;
+    }
 }

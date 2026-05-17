@@ -20,18 +20,47 @@ import { Link } from '@inertiajs/vue3'
                 Dashboard
             </Link>
 
-            <Link
+            <!-- <Link
                 href="/admin/categories"
                 class="block px-4 py-2 rounded hover:bg-gray-100"
             >
                 Categories
+            </Link> -->
+
+            <Link
+                :href="route('categories.index')"
+                :class="[
+                    route().current('categories.*')
+                        ? 'bg-gray-200 font-semibold'
+                        : '',
+                    'block px-4 py-2 rounded hover:bg-gray-100'
+                ]"
+            >
+                categories
             </Link>
 
             <Link
-                href="/admin/brands"
-                class="block px-4 py-2 rounded hover:bg-gray-100"
+                :href="route('brands.index')"
+                :class="[
+                    route().current('brands.*')
+                        ? 'bg-gray-200 font-semibold'
+                        : '',
+                    'block px-4 py-2 rounded hover:bg-gray-100'
+                ]"
             >
                 Brands
+            </Link>
+
+            <Link
+                :href="route('attributes.index')"
+                :class="[
+                    route().current('attributes.*')
+                        ? 'bg-gray-200 font-semibold'
+                        : '',
+                    'block px-4 py-2 rounded hover:bg-gray-100'
+                ]"
+            >
+                Attributes
             </Link>
 
             <Link

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\AttributeController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -39,6 +41,21 @@ Route::middleware([
         ->name('admin.dashboard');
 
     Route::resource('categories', CategoryController::class);
+    
+    Route::resource('brands', BrandController::class);
+
+    Route::get(
+        'attributes-trash',
+        [AttributeController::class, 'trash']
+    )->name('attributes.trash');
+
+    Route::put(
+        'attributes/{id}/restore',
+        [AttributeController::class, 'restore']
+    )->name('attributes.restore');
+
+    Route::resource('attributes', AttributeController::class);
+    
 });
 
 require __DIR__.'/auth.php';
