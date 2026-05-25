@@ -5,15 +5,19 @@ import InputLabel from '@/Components/InputLabel.vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 import TextInput from '@/Components/TextInput.vue'
 
-defineProps({
+const props = defineProps({
 
     form: Object,
+
+    product: Object,
 
     categories: Array,
 
     brands: Array,
 
     submit: Function,
+
+    isEdit: Boolean,
 
     buttonText: {
         type: String,
@@ -55,7 +59,15 @@ defineProps({
 
                     <select
                         v-model="form.category_id"
-                        class="w-full rounded-lg border-gray-300"
+                        :disabled="isEdit"
+                        class="w-full rounded-xl border-gray-300"
+                        :class="
+
+                            isEdit
+                                ? 'bg-gray-100 cursor-not-allowed'
+                                : ''
+
+                        "
                     >
 
                         <option value="">
@@ -88,7 +100,15 @@ defineProps({
 
                     <select
                         v-model="form.brand_id"
-                        class="w-full rounded-lg border-gray-300"
+                        :disabled="isEdit"
+                        class="w-full rounded-xl border-gray-300"
+                        :class="
+
+                            isEdit
+                                ? 'bg-gray-100 cursor-not-allowed'
+                                : ''
+
+                        "
                     >
 
                         <option value="">
@@ -371,29 +391,6 @@ defineProps({
                 </select>
 
             </div>
-
-        </div>
-
-        <!-- Thumbnail -->
-        <div
-            class="bg-gray-50 p-6 rounded-xl border"
-        >
-
-            <h2
-                class="text-lg font-semibold mb-6"
-            >
-                Thumbnail
-            </h2>
-
-            <input
-                type="file"
-                @input="form.thumbnail = $event.target.files[0]"
-            />
-
-            <InputError
-                :message="form.errors.thumbnail"
-                class="mt-2"
-            />
 
         </div>
 

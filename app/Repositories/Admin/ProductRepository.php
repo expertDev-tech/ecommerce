@@ -14,6 +14,7 @@ class ProductRepository
             ->with([
                 'category',
                 'brand',
+                'primaryImage'
             ])
 
 

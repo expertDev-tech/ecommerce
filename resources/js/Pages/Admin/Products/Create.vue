@@ -42,8 +42,6 @@ const form = useForm({
 
     in_stock: true,
 
-    thumbnail: null,
-
     short_description: '',
 
     description: '',
@@ -175,6 +173,7 @@ const submit = () => {
                     :categories="categories"
                     :brands="brands"
                     :submit="submit"
+                    :is-edit="false"
                     button-text="Create Product"
                 />
 

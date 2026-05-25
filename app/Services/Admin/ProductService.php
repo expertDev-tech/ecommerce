@@ -35,11 +35,22 @@ class ProductService
     public function updateProduct($product,array $data)
     {
 
-        $data['slug'] = $this->slugService
-        ->generateUniqueSlug(
-            $data['name'],
-            \App\Models\Product::class
-        );
+        if ($product->exists) {
+            unset(
+                $data['brand_id'],
+                $data['category_id']
+            );
+        }
+
+        if ($product->name !== $data['name']) {
+
+            $data['slug'] = $this->slugService
+                ->generateUniqueSlug(
+                    $data['name'],
+                    \App\Models\Product::class,
+                    $product->id
+                );
+        }
 
         return $this->productRepository
             ->update(

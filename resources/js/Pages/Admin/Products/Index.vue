@@ -267,10 +267,17 @@ const filter = () => {
                                 >
 
                                     <img
-                                        v-if="product.thumbnail"
-                                        :src="`/storage/${product.thumbnail}`"
-                                        class="w-16 h-16 rounded-lg object-cover border"
+                                        v-if="product.primary_image"
+                                        :src="`/storage/${product.primary_image.image}`"
+                                        class="w-14 h-14 rounded-xl object-cover"
                                     />
+
+                                    <div
+                                        v-else
+                                        class="w-14 h-14 rounded-xl bg-gray-100 flex items-center justify-center text-xs text-gray-400"
+                                    >
+                                        No Image
+                                    </div>
 
                                 </td>
 

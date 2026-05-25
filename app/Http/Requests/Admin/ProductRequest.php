@@ -47,9 +47,11 @@ class ProductRequest extends FormRequest
                 'string',
 
                 Rule::unique('products', 'sku')
-                    ->ignore(
-                        $this->route('product')->id
-                    ),
+                ->ignore(
+                    optional(
+                        $this->route('product')
+                    )->id
+                ),
 
             ],
 
@@ -86,13 +88,6 @@ class ProductRequest extends FormRequest
                 'nullable',
                 'numeric',
                 'min:0',
-            ],
-
-            'thumbnail' => [
-                'nullable',
-                'image',
-                'mimes:jpg,jpeg,png,webp',
-                'max:2048',
             ],
 
             'short_description' => [

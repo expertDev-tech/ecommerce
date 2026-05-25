@@ -79,16 +79,6 @@ class ProductController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('thumbnail')) {
-
-            $data['thumbnail'] = $request
-                ->file('thumbnail')
-                ->store(
-                    'products',
-                    'public'
-                );
-        }
-
         $product = $this->productService
             ->createProduct($data);
 

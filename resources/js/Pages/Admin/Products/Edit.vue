@@ -77,8 +77,6 @@ const form = useForm({
     in_stock:
         props.product.in_stock,
 
-    thumbnail: null,
-
     short_description:
         props.product.short_description,
 
@@ -203,24 +201,6 @@ const submit = () => {
             <div v-if="activeTab === 'basic'">
 
                 <div
-                    v-if="product.thumbnail"
-                    class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6"
-                >
-
-                    <h2
-                        class="text-lg font-semibold mb-4"
-                    >
-                        Current Thumbnail
-                    </h2>
-
-                    <img
-                        :src="`/storage/${product.thumbnail}`"
-                        class="w-32 h-32 rounded-xl object-cover border"
-                    />
-
-                </div>
-
-                <div
                     class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
                 >
 
@@ -229,6 +209,7 @@ const submit = () => {
                         :categories="categories"
                         :brands="brands"
                         :submit="submit"
+                        :is-edit="true"
                         button-text="Update Product"
                     />
 

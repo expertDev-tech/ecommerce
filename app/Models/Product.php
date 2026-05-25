@@ -21,7 +21,6 @@ class Product extends Model
         'cost_price',
         'stock',
         'weight',
-        'thumbnail',
         'description',
         'short_description',
         'meta_title',
@@ -32,6 +31,16 @@ class Product extends Model
         'in_stock',
         'status',
         'published_at',
+    ];
+
+    protected $casts = [
+
+        'manage_stock' => 'boolean',
+
+        'is_featured' => 'boolean',
+
+        'in_stock' => 'boolean',
+
     ];
 
     public function brand()
@@ -67,5 +76,15 @@ class Product extends Model
     public function collections()
     {
         return $this->belongsToMany(ProductCollection::class);
+    }
+
+    public function primaryImage()
+    {
+        return $this->hasOne(
+            ProductImage::class
+        )->where(
+            'is_primary',
+            true
+        );
     }
 }
