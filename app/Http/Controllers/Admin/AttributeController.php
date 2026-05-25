@@ -16,14 +16,36 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        $attributes = Attribute::with('category')
-            ->latest()
-            ->paginate(10);
+        $attributes = Attribute::query()
+
+        ->with('category','options')
+
+        ->when(
+            request('search'),
+            function ($query, $search) {
+
+                $query->where(
+                    'name',
+                    'like',
+                    "%{$search}%"
+                );
+            }
+        )
+
+        ->latest()
+
+        ->paginate(10)
+
+        ->withQueryString();
 
         return Inertia::render(
             'Admin/Attributes/Index',
             [
                 'attributes' => $attributes,
+
+                'filters' => request()->only(
+                    'search'
+                ),
             ]
         );
     }
@@ -75,7 +97,20 @@ class AttributeController extends Controller
             ]);
         }
 
-        Attribute::create($data);
+        $attribute = Attribute::create($data);
+
+        if (in_array($attribute->type,['select','radio','checkbox','color'])) {
+            foreach ($request->options ?? []as $option) {
+
+                $attribute->options()->create([
+
+                    'label' => $option['label'],
+
+                    'value' => $option['value'],
+
+                ]);
+            }
+        }
 
         return redirect()
             ->route('attributes.index')
@@ -98,6 +133,8 @@ class AttributeController extends Controller
      */
     public function edit(Attribute $attribute)
     {
+        $attribute->load('options');
+
         $allCategories = Category::where(
             'status',
             true
@@ -128,6 +165,22 @@ class AttributeController extends Controller
         );
 
         $attribute->update($data);
+
+        $attribute->options()->delete();
+
+        if (in_array($attribute->type,['select','radio','checkbox','color'])) {
+
+            foreach ($request->options ?? [] as $option) {
+
+                $attribute->options()->create([
+
+                    'label' => $option['label'],
+
+                    'value' => $option['value'],
+
+                ]);
+            }
+        }
 
         return redirect()
             ->route('attributes.index')

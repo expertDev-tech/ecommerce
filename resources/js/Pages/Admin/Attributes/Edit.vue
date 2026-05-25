@@ -17,6 +17,7 @@ const form = useForm({
     is_filterable: props.attribute.is_filterable,
     is_required: props.attribute.is_required,
     status: props.attribute.status,
+    options: props.attribute.options || [],
 })
 
 const submit = () => {

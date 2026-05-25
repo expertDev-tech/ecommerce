@@ -30,13 +30,22 @@ class Attribute extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function attributeValues()
+    public function values()
     {
-        return $this->hasMany(AttributeValue::class);
+        return $this->hasMany(
+            AttributeValue::class
+        );
     }
 
     public function variantAttributeValues()
     {
         return $this->hasMany(VariantAttributeValue::class);
+    }
+
+    public function options()
+    {
+        return $this->hasMany(AttributeOption::class)
+            ->where('status', true)
+            ->orderBy('sort_order');
     }
 }

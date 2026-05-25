@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\Admin\ProductAttributeController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -97,6 +98,16 @@ Route::middleware([
         'product-images/{id}/force-delete',
         [ProductImageController::class, 'forceDelete']
     )->name('products.images.force-delete');
+
+    Route::post(
+        'products/{product}/attributes',
+        [ProductAttributeController::class, 'store']
+    )->name('products.attributes.store');
+
+    Route::delete(
+        'product-attributes/{attributeValue}',
+        [ProductAttributeController::class, 'destroy']
+    )->name('products.attributes.destroy');
 
     Route::resource('products',ProductController::class);
     

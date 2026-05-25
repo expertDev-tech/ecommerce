@@ -16,6 +16,7 @@ const form = useForm({
     is_filterable: true,
     is_required: true,
     status: true,
+    options: [],
 })
 
 const submit = () => {
@@ -29,6 +30,7 @@ const submit = () => {
         }))
         .post(route('attributes.store'))
 }
+
 </script>
 
 <template>

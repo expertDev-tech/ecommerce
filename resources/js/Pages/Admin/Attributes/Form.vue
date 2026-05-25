@@ -4,7 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 import TextInput from '@/Components/TextInput.vue'
 
-defineProps({
+const props = defineProps({
     form: Object,
     categories: Array,
     attributes: Array,
@@ -14,6 +14,24 @@ defineProps({
         default: 'Save',
     },
 })
+
+const addOption = () => {
+
+    props.form.options.push({
+
+        label: '',
+
+        value: '',
+
+    })
+
+}
+
+const removeOption = (index) => {
+
+    props.form.options.splice(index, 1)
+
+}
 </script>
 
 <template>
@@ -118,6 +136,70 @@ defineProps({
                 :message="form.errors.type"
                 class="mt-2"
             />
+
+        </div>
+
+        <!-- Options -->
+        <div
+            v-if="[
+                'select',
+                'radio',
+                'checkbox',
+                'color',
+            ].includes(form.type)"
+        >
+
+            <InputLabel
+                value="Options"
+            />
+
+            <div
+                class="space-y-3 mt-3"
+            >
+
+                <div
+                    v-for="(option, index) in form.options"
+                    :key="index"
+                    class="flex gap-3"
+                >
+
+                    <!-- Label -->
+                    <input
+                        v-model="option.label"
+                        type="text"
+                        placeholder="Label"
+                        class="w-full rounded-xl border-gray-300"
+                    />
+
+                    <!-- Value -->
+                    <input
+                        v-model="option.value"
+                        type="text"
+                        placeholder="Value"
+                        class="w-full rounded-xl border-gray-300"
+                    />
+
+                    <!-- Remove -->
+                    <button
+                        type="button"
+                        @click="removeOption(index)"
+                        class="px-3 rounded-lg bg-red-100 text-red-600"
+                    >
+                        X
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- Add -->
+            <button
+                type="button"
+                @click="addOption"
+                class="mt-4 px-4 py-2 rounded-lg bg-indigo-600 text-white"
+            >
+                + Add Option
+            </button>
 
         </div>
 

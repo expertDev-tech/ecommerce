@@ -42,6 +42,23 @@ class AttributeRequest extends FormRequest
                 'in:text,textarea,number,select,radio,checkbox,color,date',
             ],
 
+            'options' => [
+                'nullable',
+                'array',
+            ],
+
+            'options.*.label' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'options.*.value' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
+
             'is_filterable' => [
                 'required',
                 'boolean',

@@ -7,6 +7,7 @@ import AdminLayout from '@/Layouts/AdminLayout.vue'
 import Form from './Form.vue'
 
 import ImagesTab from './Partials/ImagesTab.vue'
+import AttributesTab from './Partials/AttributesTab.vue'
 
 import {
     Head,
@@ -20,6 +21,8 @@ const props = defineProps({
     categories: Array,
 
     brands: Array,
+
+    attributes: Array,
 
 })
 
@@ -195,6 +198,21 @@ const submit = () => {
                     Images
                 </button>
 
+                <!-- Attributes -->
+                <button
+                    @click="activeTab = 'attributes'"
+                    class="px-5 py-2 rounded-xl font-medium transition"
+                    :class="
+
+                        activeTab === 'attributes'
+                            ? 'bg-indigo-600 text-white'
+                            : 'text-gray-600 hover:bg-gray-100'
+
+                    "
+                >
+                    Attributes
+                </button>
+
             </div>
 
             <!-- Basic Info Tab -->
@@ -224,6 +242,14 @@ const submit = () => {
                     :product="product"
                 />
 
+            </div>
+
+            <!-- Attributes Tab -->
+            <div v-if="activeTab === 'attributes'">
+                <AttributesTab
+                    :product="product"
+                    :attributes="attributes"
+                />
             </div>
 
         </div>
