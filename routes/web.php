@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -56,6 +57,46 @@ Route::middleware([
     )->name('attributes.restore');
 
     Route::resource('attributes', AttributeController::class);
+
+    Route::post(
+        'products/{product}/images',
+        [ProductImageController::class, 'store']
+    )->name('products.images.store');
+
+    Route::patch(
+        'product-images/{productImage}/primary',
+        [ProductImageController::class, 'setPrimary']
+    )->name('products.images.primary');
+
+    Route::patch(
+        'product-images/{productImage}/alt-text',
+        [ProductImageController::class, 'updateAltText']
+    )->name('products.images.alt-text');
+
+    Route::patch(
+        'product-images/{productImage}/status',
+        [ProductImageController::class, 'toggleStatus']
+    )->name('products.images.status');
+
+    Route::delete(
+        'product-images/{productImage}',
+        [ProductImageController::class, 'destroy']
+    )->name('products.images.destroy');
+
+    Route::get(
+        'products/{product}/images/trash',
+        [ProductImageController::class, 'trash']
+    )->name('products.images.trash');
+
+    Route::patch(
+        'product-images/{id}/restore',
+        [ProductImageController::class, 'restore']
+    )->name('products.images.restore');
+
+    Route::delete(
+        'product-images/{id}/force-delete',
+        [ProductImageController::class, 'forceDelete']
+    )->name('products.images.force-delete');
 
     Route::resource('products',ProductController::class);
     

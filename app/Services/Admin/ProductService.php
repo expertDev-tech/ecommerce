@@ -2,13 +2,15 @@
 
 namespace App\Services\Admin;
 
-use Illuminate\Support\Str;
-
 use App\Repositories\Admin\ProductRepository;
+use App\Services\Admin\Common\SlugService;
 
 class ProductService
 {
-    public function __construct(protected ProductRepository $productRepository) {
+    public function __construct(
+        protected ProductRepository $productRepository,
+        protected SlugService $slugService
+    ) {
 
     }
 
@@ -20,12 +22,30 @@ class ProductService
     public function createProduct(array $data)
     {
 
-        $data['slug'] = Str::slug(
-            $data['name']
+        $data['slug'] = $this->slugService
+        ->generateUniqueSlug(
+            $data['name'],
+            \App\Models\Product::class
         );
 
         return $this->productRepository
             ->create($data);
+    }
+
+    public function updateProduct($product,array $data)
+    {
+
+        $data['slug'] = $this->slugService
+        ->generateUniqueSlug(
+            $data['name'],
+            \App\Models\Product::class
+        );
+
+        return $this->productRepository
+            ->update(
+                $product,
+                $data
+            );
     }
 
 }

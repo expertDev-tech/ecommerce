@@ -13,7 +13,9 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function __construct(protected ProductService $productService) 
+    public function __construct(
+        protected ProductService $productService
+    ) 
     {
 
     }
@@ -112,17 +114,70 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        $product->load([
+            'images',
+        ]);
+
+        $allCategories = Category::where('status',true)->get();
+
+        $categories = Category::getNestedCategories($allCategories);
+
+        $brands = Brand::where(
+            'status',
+            true
+        )->orderBy('name')->get();
+
+        return Inertia::render(
+            'Admin/Products/Edit',
+            [
+                'product' => $product,
+
+                'categories' => $categories,
+
+                'brands' => $brands,
+            ]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $request,Product $product)
     {
-        //
+        $data = $request->validated();
+
+        if ($request->hasFile('thumbnail')) {
+
+            if ($product->thumbnail && Storage::disk('public')->exists($product->thumbnail)) 
+            {
+                Storage::disk('public')->delete($product->thumbnail);
+            }
+
+            $data['thumbnail'] = $request
+                ->file('thumbnail')
+                ->store(
+                    'products',
+                    'public'
+                );
+        }
+
+        $this->productService
+            ->updateProduct(
+                $product,
+                $data
+            );
+
+        return redirect()
+            ->route(
+                'products.edit',
+                $product->id
+            )
+            ->with(
+                'success',
+                'Product updated successfully.'
+            );
     }
 
     /**

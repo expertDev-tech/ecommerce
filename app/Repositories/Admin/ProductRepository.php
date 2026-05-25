@@ -112,4 +112,11 @@ class ProductRepository
         return Product::create($data);
     }
 
+    public function update($product,array $data)
+    {
+        $product->update($data);
+
+        return $product;
+    }
+
 }

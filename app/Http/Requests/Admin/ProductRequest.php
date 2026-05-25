@@ -41,9 +41,16 @@ class ProductRequest extends FormRequest
             ],
 
             'sku' => [
+
                 'required',
-                'max:255',
-                'unique:products,sku,' . request()->route('product'),
+
+                'string',
+
+                Rule::unique('products', 'sku')
+                    ->ignore(
+                        $this->route('product')->id
+                    ),
+
             ],
 
             'barcode' => [
