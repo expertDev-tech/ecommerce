@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Attribute;
+use App\Models\AttributeValue;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -108,8 +109,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $product->load([
-            'images',
-            'attributeValues.attribute.options',
+            'images'
         ]);
 
         $allCategories = Category::where('status',true)->get();
@@ -139,6 +139,23 @@ class ProductController extends Controller
 
         ->get();
 
+        $attributeValues = AttributeValue::query()
+
+        ->with([
+            'attribute.options',
+        ])
+
+        ->where(
+            'product_id',
+            $product->id
+        )
+
+        ->latest()
+
+        ->paginate(10)
+
+        ->withQueryString();
+
         return Inertia::render(
             'Admin/Products/Edit',
             [
@@ -149,6 +166,8 @@ class ProductController extends Controller
                 'brands' => $brands,
 
                 'attributes' => $attributes,
+
+                'attributeValues' => $attributeValues ,
             ]
         );
     }

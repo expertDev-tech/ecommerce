@@ -24,6 +24,8 @@ const props = defineProps({
 
     attributes: Array,
 
+    attributeValues: Object,
+
 })
 
 /*
@@ -249,6 +251,7 @@ const submit = () => {
                 <AttributesTab
                     :product="product"
                     :attributes="attributes"
+                    :attributeValues="attributeValues"
                 />
             </div>
 

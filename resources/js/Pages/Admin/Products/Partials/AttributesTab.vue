@@ -3,6 +3,7 @@
 import {
     useForm,
     router,
+    Link,
 } from '@inertiajs/vue3'
 
 const props = defineProps({
@@ -10,6 +11,8 @@ const props = defineProps({
     product: Object,
 
     attributes: Array,
+
+    attributeValues: Object,
 
 })
 
@@ -25,10 +28,40 @@ const form = useForm({
 
 })
 
-props.product.attribute_values?.forEach(
+// props.product.attribute_values?.forEach(
+//     (item) => {
+
+//         if (item.attribute.type === 'checkbox') {
+
+//             try {
+
+//                 form.values[item.attribute_id] =
+//                     JSON.parse(item.value)
+
+//             } catch {
+
+//                 form.values[item.attribute_id] = []
+
+//             }
+
+//         }
+
+//         else {
+
+//             form.values[item.attribute_id] =
+//                 item.value
+
+//         }
+
+//     }
+// )
+
+props.attributeValues.data?.forEach(
     (item) => {
 
-        if (item.attribute.type === 'checkbox') {
+        if (
+            item.attribute.type === 'checkbox'
+        ) {
 
             try {
 
@@ -319,7 +352,12 @@ const deleteAttribute = (
                     >
 
                     <div
-                        class="w-10 h-10 rounded-full border-2"
+                        class="w-10 h-10 rounded-full border-2 transition"
+                        :class="
+                            form.values[attribute.id] === option.value
+                                ? 'ring-2 ring-indigo-500 border-indigo-500'
+                                : 'border-gray-300'
+                        "
                         :title="option.label"
                         :style="{
                             backgroundColor:
@@ -361,9 +399,7 @@ const deleteAttribute = (
                 <span
                     class="text-sm text-gray-500"
                 >
-                    {{
-                        product.attribute_values?.length || 0
-                    }}
+                    {{ attributeValues.total || 0 }}
                     Attributes
                 </span>
 
@@ -371,7 +407,7 @@ const deleteAttribute = (
 
             <!-- Empty -->
             <div
-                v-if="!product.attribute_values?.length"
+                v-if="!attributeValues.data?.length"
                 class="border border-dashed border-gray-300 rounded-2xl py-16 text-center"
             >
 
@@ -422,7 +458,7 @@ const deleteAttribute = (
                     <tbody>
 
                         <tr
-                            v-for="item in product.attribute_values"
+                            v-for="item in attributeValues.data"
                             :key="item.id"
                             class="border-b"
                         >
@@ -453,6 +489,60 @@ const deleteAttribute = (
                     </tbody>
 
                 </table>
+
+            </div>
+
+            <!-- pagination -->
+
+            <div
+                class="flex items-center justify-between mt-6"
+            >
+
+                <div
+                    class="text-sm text-gray-500"
+                >
+                    Showing
+                    {{ attributeValues.from }}
+                    to
+                    {{ attributeValues.to }}
+                    of
+                    {{ attributeValues.total }}
+                    results
+                </div>
+
+                <div
+                    class="flex gap-2"
+                >
+
+                    <template
+                        v-for="link in attributeValues.links"
+                        :key="link.label"
+                    >
+
+                        <Link
+
+                            v-if="link.url"
+
+                            :href="link.url"
+
+                            v-html="link.label"
+
+                            preserve-scroll
+
+                            preserve-state
+
+                            class="px-3 py-1 rounded-lg border text-sm"
+
+                            :class="
+                                link.active
+                                    ? 'bg-indigo-600 text-white'
+                                    : 'bg-white'
+                            "
+                        />
+
+                    </template>
+
+                </div>
 
             </div>
 
