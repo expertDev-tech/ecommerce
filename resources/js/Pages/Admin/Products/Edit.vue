@@ -7,6 +7,9 @@ import AdminLayout from '@/Layouts/AdminLayout.vue'
 import Form from './Form.vue'
 
 import ImagesTab from './Partials/ImagesTab.vue'
+
+import VideosTab from './Partials/VideosTab.vue'
+
 import AttributesTab from './Partials/AttributesTab.vue'
 
 import {
@@ -200,6 +203,21 @@ const submit = () => {
                     Images
                 </button>
 
+                <!-- Videos -->
+                <button
+                    @click="activeTab = 'videos'"
+                    class="px-5 py-2 rounded-xl font-medium transition"
+                    :class="
+
+                        activeTab === 'videos'
+                            ? 'bg-indigo-600 text-white'
+                            : 'text-gray-600 hover:bg-gray-100'
+
+                    "
+                >
+                    Videos
+                </button>
+
                 <!-- Attributes -->
                 <button
                     @click="activeTab = 'attributes'"
@@ -241,6 +259,15 @@ const submit = () => {
             <div v-if="activeTab === 'images'">
 
                 <ImagesTab
+                    :product="product"
+                />
+
+            </div>
+
+            <!-- Videos Tab -->
+            <div v-if="activeTab === 'videos'">
+
+                <VideosTab
                     :product="product"
                 />
 

@@ -109,7 +109,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $product->load([
-            'images'
+            'images',
+            'videos'
         ]);
 
         $allCategories = Category::where('status',true)->get();

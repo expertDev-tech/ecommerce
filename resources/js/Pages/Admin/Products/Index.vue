@@ -158,19 +158,19 @@ const filter = () => {
                             All Status
                         </option>
 
-                        <option :value="draft">
+                        <option value="draft">
                             Draft
                         </option>
 
-                        <option :value="active">
+                        <option value="active">
                             Active
                         </option>
 
-                        <option :value="inactive">
+                        <option value="inactive">
                             Inactive
                         </option>
 
-                        <option :value="archived">
+                        <option value="archived">
                             Archived
                         </option>
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductAttributeController;
+use App\Http\Controllers\Admin\ProductVideoController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -108,6 +109,36 @@ Route::middleware([
         'product-attributes/{attributeValue}',
         [ProductAttributeController::class, 'destroy']
     )->name('products.attributes.destroy');
+
+    Route::post(
+        'products/{product}/videos',
+        [ProductVideoController::class, 'store']
+    )->name('products.videos.store');
+
+    Route::delete(
+        'products/videos/{video}',
+        [ProductVideoController::class, 'destroy']
+    )->name('products.videos.destroy');
+
+    Route::get(
+        'products/{product}/videos/trash',
+        [ProductVideoController::class, 'trash']
+    )->name('products.videos.trash');
+
+    Route::patch(
+        'products/videos/{video}/restore',
+        [ProductVideoController::class, 'restore']
+    )->name('products.videos.restore');
+
+    Route::delete(
+        'products/videos/{video}/force-delete',
+        [ProductVideoController::class, 'forceDelete']
+    )->name('products.videos.force-delete');
+
+    Route::patch(
+        '/products/videos/{video}/primary', 
+        [ProductVideoController::class, 'setPrimary'] 
+    )->name('products.videos.primary');
 
     Route::resource('products',ProductController::class);
     
