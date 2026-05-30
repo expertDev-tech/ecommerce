@@ -305,6 +305,7 @@ const deleteImage = (
 
                     <!-- Trash -->
                     <Link
+                        v-if="product.images?.length > 0"
                         :href="
                             route(
                                 'products.images.trash',

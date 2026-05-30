@@ -329,6 +329,7 @@ const setPrimary = (
                     </span>
 
                     <Link
+                        v-if="product.videos?.length > 0"
                         :href="
                             route(
                                 'products.videos.trash',
