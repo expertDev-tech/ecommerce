@@ -1,6 +1,10 @@
-# Laravel E-Commerce Platform
+# Laravel Vue E-Commerce Platform
 
-A modern E-Commerce Admin Panel built with Laravel, Inertia.js, Vue.js, MySQL, and Tailwind CSS.
+A modern, scalable E-Commerce platform built with Laravel, Inertia.js, Vue.js, Tailwind CSS, and MySQL.
+
+The project is being developed using a module-by-module approach, focusing on building a production-ready Admin Panel first, followed by a complete Customer Storefront.
+
+---
 
 ## Tech Stack
 
@@ -16,53 +20,66 @@ A modern E-Commerce Admin Panel built with Laravel, Inertia.js, Vue.js, MySQL, a
 * Vue.js 3
 * Inertia.js
 * Tailwind CSS
-* Lucide Icons
 
 ### Development Tools
 
-* Git
-* GitHub
+* Git & GitHub
 * Composer
 * NPM
+* Vite
 
 ---
 
-# Features
+# Project Architecture
+
+The project follows a practical architecture:
+
+* Simple CRUD → Controller + Model
+* Medium Complexity → Dedicated Validation
+* Complex Business Logic → Separation when needed
+
+The goal is to keep the codebase maintainable without unnecessary overengineering.
+
+---
+
+# Completed Modules
 
 ## Authentication & Authorization
 
-* Secure Admin Authentication
-* Role-Based Access Control (RBAC)
+* Admin Authentication
+* Role Based Access Control (RBAC)
 * Permission Management
 
 ---
 
-## Catalog Management
+## Category Management
 
-### Categories
+Features:
 
 * Create Category
-* Update Category
+* Edit Category
 * Delete Category
-* Trash & Restore
+* Soft Delete
+* Trash Management
+* Restore Category
+* Permanent Delete
 * Nested Categories
 * Status Management
 
-### Brands
+---
+
+## Brand Management
+
+Features:
 
 * Create Brand
-* Update Brand
+* Edit Brand
 * Delete Brand
 * Brand Image Upload
-* Trash & Restore
-
-### Product Collections
-
-* Collection Management
-* Featured Collections
-* SEO Meta Fields
-* Collection Images
-* Product Assignment
+* Soft Delete
+* Trash Management
+* Restore Brand
+* Permanent Delete
 
 ---
 
@@ -70,106 +87,231 @@ A modern E-Commerce Admin Panel built with Laravel, Inertia.js, Vue.js, MySQL, a
 
 ### Product CRUD
 
+Features:
+
 * Create Product
 * Edit Product
 * Delete Product
-* Product Status Management
-* Stock Management
-* Pricing Management
-* SEO Management
+* Product Status
+* Featured Products
+* Inventory Fields
+* Pricing Fields
+* SEO Fields
+
+---
 
 ### Product Images
 
+Features:
+
 * Multiple Image Upload
-* Primary Image Support
-* Sort Order
+* Primary Image
+* Image Listing
 * Soft Delete
-* Trash & Restore
+* Trash Management
+* Restore Image
 * Permanent Delete
 
+---
+
 ### Product Videos
+
+Supported Types:
 
 * YouTube Videos
 * Vimeo Videos
 * Uploaded Videos
-* Primary Video Support
+
+Features:
+
+* Video Management
+* Embedded Video Preview
+* Primary Video Selection
 * Soft Delete
-* Trash & Restore
+* Trash Management
+* Restore Video
 * Permanent Delete
-
-### Product Attributes
-
-* Dynamic Attributes
-* Attribute Options
-* Text Fields
-* Textarea Fields
-* Number Fields
-* Date Fields
-* Select Fields
-* Radio Fields
-* Checkbox Fields
-* Color Attributes
-* Required Attribute Validation
-* Product Attribute Assignment
-* Pagination Support
 
 ---
 
-## SEO Features
+### Product Attributes
 
-* SEO Friendly URLs
-* Meta Titles
-* Meta Descriptions
-* Slug Generation
+Supported Attribute Types:
+
+* Text
+* Textarea
+* Number
+* Date
+* Select
+* Radio
+* Checkbox
+* Color
+
+Features:
+
+* Dynamic Product Attributes
+* Required Attributes
+* Attribute Options
+* Product Assignment
+* Pagination
+* Validation Support
 
 ---
 
 ## Soft Delete System
 
-Implemented across multiple modules:
+Implemented Across:
 
 * Categories
 * Brands
 * Product Images
 * Product Videos
-* Collections
 
 Features:
 
-* Trash Management
+* Trash Page
 * Restore Records
 * Permanent Delete
 
 ---
 
-## Project Structure
+# Currently In Development
 
-```text
-app
-├── Http
-│   ├── Controllers
-│   └── Middleware
-├── Models
-├── Services
-└── Helpers
+## Product Collections
 
-resources
-└── js
-    └── Pages
-        └── Admin
-```
+Features Planned:
+
+* Collection CRUD
+* Collection Image
+* Featured Collections
+* SEO Fields
+* Product Assignment
+* Soft Delete
+* Trash Management
 
 ---
 
-## Installation
+# Upcoming Modules
 
-### Clone Repository
+## Product Variants
+
+Features:
+
+* Variant Generation
+* Variant Attributes
+* SKU Management
+* Variant Pricing
+* Variant Inventory
+* Variant Images
+
+---
+
+## Inventory Management
+
+Features:
+
+* Stock Tracking
+* Inventory Updates
+* Low Stock Monitoring
+
+---
+
+## Coupons & Discounts
+
+Features:
+
+* Coupon Codes
+* Percentage Discounts
+* Fixed Discounts
+* Usage Limits
+
+---
+
+## Orders
+
+Features:
+
+* Order Management
+* Order Status Workflow
+* Customer Orders
+* Order Details
+
+---
+
+## Reviews & Ratings
+
+Features:
+
+* Product Reviews
+* Product Ratings
+* Moderation
+
+---
+
+## Dashboard & Reports
+
+Features:
+
+* Sales Reports
+* Inventory Reports
+* Customer Reports
+* Revenue Analytics
+
+---
+
+# Future Roadmap
+
+After Admin Panel completion:
+
+## Customer Storefront
+
+### Home Page
+
+* Featured Products
+* Collections
+* Promotions
+
+### Catalog
+
+* Product Listing
+* Category Pages
+* Collection Pages
+* Search
+* Filters
+
+### Product Details
+
+* Images
+* Videos
+* Attributes
+* Variants
+* Related Products
+
+### Shopping Features
+
+* Cart
+* Wishlist
+* Checkout
+* Order Tracking
+
+### Customer Account
+
+* Profile
+* Address Management
+* Order History
+* Wishlist
+
+---
+
+# Installation
+
+Clone Repository
 
 ```bash
 git clone <repository-url>
 ```
 
-### Install Dependencies
+Install Dependencies
 
 ```bash
 composer install
@@ -177,31 +319,31 @@ composer install
 npm install
 ```
 
-### Environment Setup
+Environment Setup
 
 ```bash
 cp .env.example .env
 ```
 
-### Generate Key
+Generate Application Key
 
 ```bash
 php artisan key:generate
 ```
 
-### Run Migrations
+Run Migrations
 
 ```bash
 php artisan migrate
 ```
 
-### Storage Link
+Create Storage Link
 
 ```bash
 php artisan storage:link
 ```
 
-### Start Development Server
+Start Development
 
 ```bash
 php artisan serve
@@ -211,7 +353,7 @@ npm run dev
 
 ---
 
-## Git Workflow
+# Git Workflow
 
 ```bash
 git checkout develop
@@ -221,7 +363,7 @@ git pull origin develop
 git checkout -b feature/feature-name
 ```
 
-After development:
+After Development:
 
 ```bash
 git add .
@@ -231,47 +373,38 @@ git commit -m "Feature: Description"
 git push origin feature/feature-name
 ```
 
-Create Pull Request and merge into develop/main.
+Merge feature branch into develop/main after review.
 
 ---
 
-## Current Progress
+# Project Status
 
-Completed:
+Admin Panel Progress:
 
-* Authentication
-* Categories Module
-* Brands Module
-* Product CRUD
-* Product Images
-* Product Videos
-* Product Attributes
-* Soft Delete & Trash System
-* Pagination
+* Authentication ✓
+* Categories ✓
+* Brands ✓
+* Product CRUD ✓
+* Product Images ✓
+* Product Videos ✓
+* Product Attributes ✓
+* Soft Delete System ✓
+* Collections (In Progress)
+* Variants (Upcoming)
 
-In Progress:
+Frontend Progress:
 
-* Product Collections
-
-Upcoming:
-
-* Product Variants
-* Inventory Management
-* Orders
-* Coupons
-* Reviews
-* Wishlist
-* Reports & Analytics
+* Planned After Admin Completion
 
 ---
 
-## Author
+# Author
 
 Ankit Parmar
 
 Senior Full Stack Developer
 
-Laravel | Vue.js | Inertia.js | MySQL
+Laravel | Vue.js | Inertia.js | MySQL | Tailwind CSS
 
 ## License
 
