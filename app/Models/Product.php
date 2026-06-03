@@ -75,7 +75,10 @@ class Product extends Model
 
     public function collections()
     {
-        return $this->belongsToMany(ProductCollection::class);
+        return $this->belongsToMany(
+            ProductCollection::class,
+            'collection_product'
+        );
     }
 
     public function primaryImage()

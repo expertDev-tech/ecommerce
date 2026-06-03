@@ -12,6 +12,8 @@ import VideosTab from './Partials/VideosTab.vue'
 
 import AttributesTab from './Partials/AttributesTab.vue'
 
+import CollectionsTab from './Partials/CollectionsTab.vue'
+
 import {
     Head,
     useForm,
@@ -28,6 +30,8 @@ const props = defineProps({
     attributes: Array,
 
     attributeValues: Object,
+
+    collections: Array
 
 })
 
@@ -233,6 +237,18 @@ const submit = () => {
                     Attributes
                 </button>
 
+                <button
+                    @click="activeTab = 'collections'"
+                    class="px-5 py-2 rounded-xl font-medium transition"
+                    :class="
+                        activeTab === 'collections'
+                            ? 'bg-indigo-600 text-white'
+                            : 'text-gray-600 hover:bg-gray-100'
+                    "
+                >
+                    Collections
+                </button>
+
             </div>
 
             <!-- Basic Info Tab -->
@@ -280,6 +296,15 @@ const submit = () => {
                     :attributes="attributes"
                     :attributeValues="attributeValues"
                 />
+            </div>
+
+            <div v-if="activeTab === 'collections'">
+
+                <CollectionsTab
+                    :product="product"
+                    :collections="collections"
+                />
+
             </div>
 
         </div>
