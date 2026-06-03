@@ -7,6 +7,11 @@ import { router } from '@inertiajs/vue3'
 
 import { ref, watch } from 'vue'
 
+import {
+    Pencil,
+    Trash2
+} from 'lucide-vue-next'
+
 const props = defineProps({
 
     attributes: Object,
@@ -190,21 +195,37 @@ const destroy = (id) => {
                             </td>
 
                             <!-- Actions -->
-                            <td class="border p-3">
 
-                                <Link
-                                    :href="route('attributes.edit', attribute.id)"
-                                    class="text-indigo-600"
-                                >
-                                    Edit
-                                </Link>
+                            <td
+                                class="px-6 py-4"
+                            >
 
-                                <button
-                                    @click="destroy(attribute.id)"
-                                    class="ml-3 text-red-600 hover:underline"
+                                <div
+                                    class="flex justify-end gap-3"
                                 >
-                                    Delete
-                                </button>
+
+                                    <Link
+                                        :href="
+                                            route(
+                                                'attributes.edit',
+                                                attribute.id
+                                            )
+                                        "
+                                        class="text-indigo-600 hover:text-indigo-700"
+                                    >
+                                        <Pencil class="w-4 h-4" />
+                                    </Link>
+
+                                    <button
+                                        @click="
+                                            destroy(attribute.id)
+                                        "
+                                        class="text-red-600 hover:text-red-700"
+                                    >
+                                        <Trash2 class="w-4 h-4" />
+                                    </button>
+
+                                </div>
 
                             </td>
 

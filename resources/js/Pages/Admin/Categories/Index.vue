@@ -3,6 +3,10 @@ import AdminLayout from '@/Layouts/AdminLayout.vue'
 
 import { Head, Link } from '@inertiajs/vue3'
 
+import {
+    Pencil
+} from 'lucide-vue-next'
+
 defineProps({
     categories: Object,
 })
@@ -149,7 +153,7 @@ defineProps({
                                     :href="route('categories.edit', category.id)"
                                     class="text-indigo-600"
                                 >
-                                    Edit
+                                    <Pencil class="w-4 h-4" />
                                 </Link>
 
                             </td>

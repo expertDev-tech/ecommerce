@@ -64,6 +64,18 @@ import { Link } from '@inertiajs/vue3'
             </Link>
 
             <Link
+                :href="route('collections.index')"
+                :class="[
+                    route().current('collections.*')
+                        ? 'bg-gray-200 font-semibold'
+                        : '',
+                    'block px-4 py-2 rounded hover:bg-gray-100'
+                ]"
+            >
+                Collections
+            </Link>
+
+            <Link
                 href="/admin/products"
                 class="block px-4 py-2 rounded hover:bg-gray-100"
             >
