@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductAttributeController;
 use App\Http\Controllers\Admin\ProductVideoController;
+use App\Http\Controllers\Admin\ProductCollectionController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -141,6 +142,34 @@ Route::middleware([
     )->name('products.videos.primary');
 
     Route::resource('products',ProductController::class);
+
+    Route::prefix('collections')
+    ->name('collections.')
+    ->group(function () {
+
+        Route::get(
+            '/trash',
+            [ProductCollectionController::class, 'trash']
+        )->name('trash');
+
+        Route::patch(
+            '/{collection}/restore',
+            [ProductCollectionController::class, 'restore']
+        )->withTrashed()
+         ->name('restore');
+
+        Route::delete(
+            '/{collection}/force-delete',
+            [ProductCollectionController::class, 'forceDelete']
+        )->withTrashed()
+         ->name('force-delete');
+
+    });
+
+    Route::resource(
+        'collections',
+        ProductCollectionController::class
+    );
     
 });
 

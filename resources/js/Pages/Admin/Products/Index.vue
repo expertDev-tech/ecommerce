@@ -12,6 +12,11 @@ import {
 
 import { reactive } from 'vue'
 
+import {
+    Pencil,
+    Trash2
+} from 'lucide-vue-next'
+
 const props = defineProps({
 
     products: Object,
@@ -249,6 +254,12 @@ const filter = () => {
                                     Status
                                 </th>
 
+                                <th
+                                    class="text-right px-6 py-4"
+                                >
+                                    Actions
+                                </th>
+
                             </tr>
 
                         </thead>
@@ -383,6 +394,41 @@ const filter = () => {
                                     >
                                         {{ product.status }}
                                     </span>
+
+                                </td>
+
+                                <td
+                                    class="px-6 py-4"
+                                >
+
+                                    <div
+                                        class="flex justify-end gap-3"
+                                    >
+
+                                        <Link
+                                            :href="
+                                                route(
+                                                    'products.edit',
+                                                    product.id
+                                                )
+                                            "
+                                            class="text-indigo-600 hover:text-indigo-700"
+                                        >
+                                            <Pencil class="w-4 h-4" />
+                                        </Link>
+
+                                        <button
+                                            @click="
+                                                deleteProduct(
+                                                    product.id
+                                                )
+                                            "
+                                            class="text-red-600 hover:text-red-700"
+                                        >
+                                            <Trash2 class="w-4 h-4" />
+                                        </button>
+
+                                    </div>
 
                                 </td>
 
