@@ -11,6 +11,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
+use App\Models\ProductCollection;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -110,7 +111,8 @@ class ProductController extends Controller
     {
         $product->load([
             'images',
-            'videos'
+            'videos',
+            'collections',
         ]);
 
         $allCategories = Category::where('status',true)->get();
@@ -157,6 +159,14 @@ class ProductController extends Controller
 
         ->withQueryString();
 
+        $collections = ProductCollection::query()
+
+        ->where('status', true)
+
+        ->orderBy('name')
+
+        ->get();
+
         return Inertia::render(
             'Admin/Products/Edit',
             [
@@ -169,6 +179,8 @@ class ProductController extends Controller
                 'attributes' => $attributes,
 
                 'attributeValues' => $attributeValues ,
+
+                'collections' => $collections,
             ]
         );
     }

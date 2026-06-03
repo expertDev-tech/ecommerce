@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Admin\Common\SlugService;
+use App\Models\Product;
 use App\Models\ProductCollection;
 use App\Http\Requests\Admin\ProductCollectionRequest;
 use Illuminate\Support\Facades\Storage;
@@ -242,6 +243,28 @@ class ProductCollectionController extends Controller
         return back()->with(
             'success',
             'Collection permanently deleted.'
+        );
+    }
+
+    public function assignToProduct(Request $request,Product $product)
+    {
+        $request->validate([
+
+            'collections' => [
+                'nullable',
+                'array',
+            ],
+
+        ]);
+
+        $product->collections()
+            ->sync(
+                $request->collections ?? []
+            );
+
+        return back()->with(
+            'success',
+            'Collections updated successfully.'
         );
     }
 }

@@ -141,6 +141,14 @@ Route::middleware([
         [ProductVideoController::class, 'setPrimary'] 
     )->name('products.videos.primary');
 
+    Route::post(
+        '/products/{product}/collections',
+        [ProductCollectionController::class,
+        'assignToProduct']
+    )->name(
+        'products.collections.store'
+    );
+
     Route::resource('products',ProductController::class);
 
     Route::prefix('collections')
